@@ -68,7 +68,7 @@
     <span>Subject</span>
     <span id="date" class="${this.state.order}" _click="${this.toggleSelect}">Date</span>
   </p>
-  <div id="results" data-sifrr-repeat="${this.sortedResults}" data-sifrr-key="id">
+  <div id="results" data-sifrr-repeat="${this.sortedResults}">
     <p is="result-row"></p>
   </div>
 </template>
@@ -90,12 +90,11 @@
 
     get sortedResults() {
       const sortBy = this.state.order === 'asc' ? 1 : -1;
-      const sorted = this.state.results.concat().sort((arr1, arr2) => {
+      return this.state.results.concat().sort((arr1, arr2) => {
         const date1 = new Date(...arr1.date.split('-'), ...arr1.time.split(':'));
         const date2 = new Date(...arr2.date.split('-'), ...arr2.time.split(':'));
         return date1 > date2 ? sortBy : -1 * sortBy;
       });
-      return sorted;
     }
   };
   ResultTable.defaultState = {

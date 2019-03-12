@@ -52,8 +52,12 @@
 </template>
 <script type="text/javascript">
   class ResultContainer extends Sifrr.Dom.Element {
-    onUpdate() {
+    onConnect() {
       this.$('result-table')._state = { results: this.state.results };
+    }
+
+    onStateChange() {
+      this.$('result-table').state = { results: this.state.results };
     }
   }
   ResultContainer.defaultState = {

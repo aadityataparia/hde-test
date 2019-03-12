@@ -50,23 +50,28 @@
   <header id="search">
     <p>
       <span>Search Period :&nbsp;</span>
-      <input type="date" name="stateDate" value="${this.state.startDate}" data-sifrr-bind="startDate">
+      <input id="start" type="date" name="stateDate" value="${this.state.startDate}" data-sifrr-bind="startDate">
       <span>&nbsp;-&nbsp;</span>
-      <input type="date" name="endDate" value="${this.state.endDate}" data-sifrr-bind="endDate">
+      <input id="end" type="date" name="endDate" value="${this.state.endDate}" data-sifrr-bind="endDate">
       <button _click=${this.updateResults}><img class="icon-search" src="/images/tool-search.png" alt="">Search</button>
     </p>
   </header>
   <result-container></result-container>
 </template>
 <script type="text/javascript">
+  const today = new Date();
   class MainElement extends Sifrr.Dom.Element {
     get filteredResults() {
-      return this.state.allResults;
+      const fromDate = this.$('#start').value;
+      const endDate = this.$('#end').value;
+      return this.state.allResults.filter(r => {
+        return r.date <= endDate && r.date >= fromDate;
+      });
     }
 
     onConnect() {
       this.state = { allResults: generateRandomResults(100) };
-      this.updateResults();
+      this.$('result-container')._state = { results: this.filteredResults };
     }
 
     updateResults() {
@@ -74,8 +79,8 @@
     }
   }
   MainElement.defaultState = {
-    startDate: new Date().yyyymmdd(),
-    endDate: new Date().yyyymmdd(),
+    startDate: today.yyyymmdd(),
+    endDate: new Date(2019, today.getMonth(), today.getDate() + 5).yyyymmdd(),
     query: '',
     allResults: []
   }
@@ -85,17 +90,17 @@
 
   function generateRandomResults(total) {
     const results = [];
-    const today = new Date().getDate();
     for (let i = 0; i < total; i++) {
       const r1 = rand(total);
       const r2 = rand(total);
+      const h = rand(23), m = rand(59);
       results.push({
         id: i,
         from: `user ${r1} <testuser${r1}@test.example.com>`,
         to: `user ${r2} <testuser${r2}@test.example.com>`,
         subject: `Test subject from user ${r1} to user ${r2}`,
-        date: new Date(2019, 3, today + rand(5)).yyyymmdd(),
-        time: `${rand(23)}:${rand(59)}`,
+        date: new Date(2019, today.getMonth(), today.getDate() + rand(5)).yyyymmdd(),
+        time: `${h > 9 ? h : '0' + h}:${m > 9 ? m : '0' + m}`,
         body: `Random body`
       });
     }
