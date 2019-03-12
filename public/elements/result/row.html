@@ -1,0 +1,14 @@
+<template>
+  <span>${this.state.from}</span>
+  <span><img src="/images/addresses.png" alt="people">${this.state.to}</span>
+  <span>${this.state.subject} ${this.state.time}</span>
+  <span>${this.state.date} ${this.state.time}</span>
+</template>
+<script type="text/javascript">
+  class ResultRow extends Sifrr.Dom.Element.extends(HTMLParagraphElement) {
+    static get useShadowRoot() {
+      return false;
+    }
+  }
+  Sifrr.Dom.register(ResultRow, { extends: 'p' });
+</script>

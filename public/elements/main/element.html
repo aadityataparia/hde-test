@@ -1,17 +1,108 @@
 <template>
   <style media="screen">
-    #container {
-
+    :host {
+      padding: 2px;
+      font-family: Sans-serif, sans;
+    }
+    :host > * {
+      width: 100%;
+    }
+    p {
+      padding: 6px 10px;
+      margin: 0;
+    }
+    p * {
+      vertical-align: middle;
+      font-size: 13px;
+      line-height: 20px;
+      padding: 0;
+    }
+    input {
+      font-size: 13px;
+      background: white;
+      font-family: Sans-serif, sans;
+    }
+    #search {
+      width: 100%;
+      background: linear-gradient(to top, rgb(217, 217, 217), rgb(248, 248, 248));
+      border-radius: 3px;
+    }
+    button {
+      background: linear-gradient(to top, rgb(234, 234, 234), rgb(255, 255, 255));
+      height: 26px;
+      border-radius: 5px;
+      margin-left: 8px;
+      padding: 0 4px;
+    }
+    .icon-search {
+      vertical-align: middle;
+      display: inline-block;
+      height: 20px;
+      width: 20px;
+      margin-right: 3px;
+      position: relative;
+    }
+    result-container {
+      height: calc(100% - 38px);
+      display: block;
     }
   </style>
-  <header>
-
+  <header id="search">
+    <p>
+      <span>Search Period :&nbsp;</span>
+      <input type="date" name="stateDate" value="${this.state.startDate}" data-sifrr-bind="startDate">
+      <span>&nbsp;-&nbsp;</span>
+      <input type="date" name="endDate" value="${this.state.endDate}" data-sifrr-bind="endDate">
+      <button _click=${this.updateResults}><img class="icon-search" src="/images/tool-search.png" alt="">Search</button>
+    </p>
   </header>
-  <section>
-
-  </section>
+  <result-container></result-container>
 </template>
 <script type="text/javascript">
-  class MainElement extends Sifrr.Dom.Element {}
-  Sifrr.Dom.register(MainElement);
+  class MainElement extends Sifrr.Dom.Element {
+    get filteredResults() {
+      return this.state.allResults;
+    }
+
+    onConnect() {
+      this.state = { allResults: generateRandomResults(100) };
+      this.updateResults();
+    }
+
+    updateResults() {
+      this.$('result-container').state = { results: this.filteredResults };
+    }
+  }
+  MainElement.defaultState = {
+    startDate: new Date().yyyymmdd(),
+    endDate: new Date().yyyymmdd(),
+    query: '',
+    allResults: []
+  }
+  Sifrr.Dom.load('result-container', { js: false }).then(() => {
+    Sifrr.Dom.register(MainElement);
+  });
+
+  function generateRandomResults(total) {
+    const results = [];
+    const today = new Date().getDate();
+    for (let i = 0; i < total; i++) {
+      const r1 = rand(total);
+      const r2 = rand(total);
+      results.push({
+        id: i,
+        from: `user ${r1} <testuser${r1}@test.example.com>`,
+        to: `user ${r2} <testuser${r2}@test.example.com>`,
+        subject: `Test subject from user ${r1} to user ${r2}`,
+        date: new Date(2019, 3, today + rand(5)).yyyymmdd(),
+        time: `${rand(23)}:${rand(59)}`,
+        body: `Random body`
+      });
+    }
+    return results;
+  }
+
+  function rand(max, min = 0) {
+    return Math.floor(Math.random() * (max - min)) + min
+  }
 </script>

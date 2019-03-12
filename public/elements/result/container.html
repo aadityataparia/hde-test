@@ -1,0 +1,65 @@
+<template>
+  <style media="screen">
+    .show {
+      display: block;
+    }
+    .hide {
+      display: none;
+    }
+    p {
+      padding: 10px 10px;
+      margin: 0;
+    }
+    p * {
+      vertical-align: middle;
+      font-size: 13px;
+      line-height: 20px;
+      padding: 0;
+    }
+    #details {
+      background: rgb(255, 255, 255);
+      margin: 2px 0;
+    }
+    #container {
+      background: rgb(255, 255, 255);
+      height: calc(100% - 44px);
+    }
+    #fallback, #results {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+    #fallback img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  </style>
+  <section id="details">
+    <p>
+      <span>Result :</span>
+      <span>&nbsp;&nbsp;</span>
+      <span>${this.state.results.length} mail(s)</span>
+    </p>
+  </section>
+  <div id="container">
+    <div id="fallback" class="${this.state.results.length === 0 ? 'show' : 'hide'}">
+      <img src="/images/logo.png" alt="logo" align="middle">
+    </div>
+    <result-table id="results" class="${this.state.results.length > 0 ? 'show' : 'hide'}"></result-table>
+  </div>
+</template>
+<script type="text/javascript">
+  class ResultContainer extends Sifrr.Dom.Element {
+    onUpdate() {
+      this.$('result-table')._state = { results: this.state.results };
+    }
+  }
+  ResultContainer.defaultState = {
+    results: []
+  }
+  Sifrr.Dom.load('result-table', { js: false }).then(() => {
+    Sifrr.Dom.register(ResultContainer);
+  });
+</script>

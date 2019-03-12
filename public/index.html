@@ -7,6 +7,8 @@
       body, html {
         padding: 2px;
         margin: 0;
+        width: 100%;
+        overflow-x: hidden;
       }
       * {
         box-sizing: border-box;
@@ -14,18 +16,30 @@
       main-element {
         display: block;
         width: 100%;
-        height: 400px;
+        height: 500px;
         border-radius: 3px;
-        background: rgba(0,0,0,0.3);
-        padding: 2px;
+        background: rgb(180, 180, 180);
       }
     </style>
   </head>
   <body>
     <main-element></main-element>
+    <img src="/images/result.png" width="100%" alt="">
     <script src="https://cdn.jsdelivr.net/npm/@sifrr/fetch@0.0.3/dist/sifrr.fetch.min.js" charset="utf-8"></script>
     <script src="https://cdn.jsdelivr.net/npm/@sifrr/dom@0.0.3/dist/sifrr.dom.min.js" charset="utf-8"></script>
     <script type="text/javascript">
+      Date.prototype.yyyymmdd = function() {
+        var mm = this.getMonth() + 1; // getMonth() is zero-based
+        var dd = this.getDate();
+
+        return [ this.getFullYear(),
+                  (mm > 9 ? '' : '0') + mm,
+                  (dd > 9 ? '' : '0') + dd
+                ].join('-');
+      };
+
+      var date = new Date();
+      date.yyyymmdd();
       Sifrr.Dom.setup({
         baseUrl: '',
         useShadowRoot: true
