@@ -1,0 +1,24 @@
+{
+  "name": "hde-test",
+  "version": "1.0.0",
+  "description": "HDE test",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aadityataparia/hde-test.git"
+  },
+  "author": "aadityataparia@hmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aadityataparia/hde-test/issues"
+  },
+  "homepage": "https://aadityataparia.github.com/hde-test",
+  "dependencies": {
+    "express": "^4.16.4",
+    "serve-static": "^1.13.2"
+  }
+}
