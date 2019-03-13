@@ -60,7 +60,7 @@
     .body {
       display: block;
       position: relative;
-      height: 54px;
+      max-height: 54px;
       padding: 4px 40px;
       width: 100%;
       color: rgb(100, 100, 100);
@@ -68,6 +68,10 @@
       display: -webkit-box;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
+    }
+    .body.expand {
+      max-height: none;
+      -webkit-line-clamp: inherit;
     }
     #date {
       cursor: pointer;
@@ -79,7 +83,7 @@
     <span>Subject</span>
     <span id="date" class="${this.state.order}" _click="${this.toggleSelect}">Date</span>
   </p>
-  <div id="results" data-sifrr-repeat="${this.sortedResults}">
+  <div id="results" data-sifrr-repeat="${this.sortedResults}" data-sifrr-key="id">
     <p is="result-row"></p>
   </div>
 </template>

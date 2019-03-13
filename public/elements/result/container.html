@@ -6,6 +6,10 @@
     .hide {
       display: none;
     }
+    .gap {
+      width: 3px;
+      display: inline-block;
+    }
     p {
       padding: 10px 10px;
       margin: 0;
@@ -39,7 +43,7 @@
   <section id="details">
     <p>
       <span>Result :</span>
-      <span>&nbsp;&nbsp;</span>
+      <span class="gap"></span>
       <span>${this.state.results.length} mail(s)</span>
     </p>
   </section>
