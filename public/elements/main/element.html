@@ -101,10 +101,60 @@
         subject: `Test subject from user ${r1} to user ${r2}`,
         date: new Date(2019, today.getMonth(), today.getDate() + rand(5)).yyyymmdd(),
         time: `${h > 9 ? h : '0' + h}:${m > 9 ? m : '0' + m}`,
-        body: `Random body`
+        body: randomSentance(200)
       });
     }
     return results;
+  }
+
+  function randomSentance(len) {
+    const words = [
+      'load',
+      'punch',
+      'era',
+      'passion',
+      'dominant',
+      'insert',
+      'baseball',
+      'catch',
+      'player',
+      'light',
+      'please',
+      'smile',
+      'water',
+      'prosecution',
+      'approve',
+      'separation',
+      'butterfly',
+      'calm',
+      'portrait',
+      'deport',
+      'throne',
+      'candle',
+      'mislead',
+      'defendant',
+      'defeat',
+      'coup',
+      'philosophy',
+      'patrol',
+      'material',
+      'session',
+      'bark',
+      'roar',
+      'magnetic',
+      'mutual',
+      'kinship',
+      'sweat',
+      'conscience',
+      'subject',
+      'closed',
+      'accident'
+    ];
+    const l = words.length, ret = [];
+    for (let i = 0; i < len; i++) {
+      ret.push(words[rand(39)]);
+    }
+    return ret.join(' ') + '.';
   }
 
   function rand(max, min = 0) {
