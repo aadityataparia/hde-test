@@ -6,7 +6,7 @@
   <span class="body" _click="${this.toggleExpand}">${this.state.body}</span>
 </template>
 <script type="text/javascript">
-  class ResultRow extends Sifrr.Dom.Element.extends(HTMLParagraphElement) {
+  class ResultRow extends Sifrr.Dom.Element {
     static get useShadowRoot() {
       return false;
     }
@@ -17,5 +17,5 @@
       else target.classList.add('expand');
     }
   }
-  Sifrr.Dom.register(ResultRow, { extends: 'p' });
+  Sifrr.Dom.register(ResultRow);
 </script>

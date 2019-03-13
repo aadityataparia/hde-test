@@ -14,7 +14,14 @@
     p {
       line-height: 16px;
       margin: 0;
+    }
+    result-row {
+      display: block;
+      width: 100%;
+      line-height: 16px;
+      margin: 0;
       padding: 4px;
+      border-top: 1px solid rgb(240, 240, 240);
     }
     span {
       white-space: nowrap;
@@ -44,9 +51,6 @@
     span:nth-child(4) {
       width: 22%;
     }
-    #results p {
-      border-top: 1px solid rgb(240, 240, 240);
-    }
     span.asc::after {
       content: url('./images/arrow_up.png');
       margin-left: 4px;
@@ -60,8 +64,8 @@
     .body {
       display: block;
       position: relative;
-      max-height: 54px;
-      padding: 4px 40px;
+      max-height: 52px;
+      padding: 2px 40px 6px;
       width: 100%;
       color: rgb(100, 100, 100);
       white-space: normal;
@@ -84,7 +88,7 @@
     <span id="date" class="${this.state.order}" _click="${this.toggleSelect}">Date</span>
   </p>
   <div id="results" data-sifrr-repeat="${this.sortedResults}" data-sifrr-key="id">
-    <p is="result-row"></p>
+    <result-row></result-row>
   </div>
 </template>
 <script type="text/javascript">
