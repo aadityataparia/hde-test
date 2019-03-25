@@ -94,14 +94,6 @@
 <script type="text/javascript">
   Sifrr.Dom.Event.add('click');
   class ResultTable extends Sifrr.Dom.Element {
-    getClass(type) {
-      if (this.state.sortBy === type) {
-        if (this.state.order === 0) return 'asc';
-        else return 'desc'
-      }
-      return '';
-    }
-
     toggleSelect(event, target) {
       if (this.state.order === 'asc') this.state = { order: 'desc' };
       else this.state = { order: 'asc' };
